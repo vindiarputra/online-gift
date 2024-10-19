@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Package, X } from "lucide-react";
 
-export default function DrawerHistory({ isOpen, onClose }) {
+type DrawerHistoryProps = {
+	isOpen: Boolean;
+	onClose: () => void;
+};
+
+export default function DrawerHistory({ isOpen, onClose }: DrawerHistoryProps) {
 	const [expandedOrder, setExpandedOrder] = useState(null);
 
 	const purchaseHistory = [
@@ -32,7 +37,7 @@ export default function DrawerHistory({ isOpen, onClose }) {
 		},
 	];
 
-	const toggleOrder = (orderId) => {
+	const toggleOrder = (orderId: any) => {
 		setExpandedOrder(expandedOrder === orderId ? null : orderId);
 	};
 
