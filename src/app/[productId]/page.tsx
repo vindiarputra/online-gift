@@ -31,21 +31,17 @@ export default function DetailProduct() {
 	const handleAddToCart = () => {
 		dispatch({
 			type: "ADD_ITEM",
-			item: { id: product.id, name: product.name, price: product.price, quantity },
+			item: {
+				id: currentProduct?.id || "",
+				name: currentProduct?.name || "",
+				price: currentProduct?.price || 0,
+				quantity,
+			},
 		});
 	};
-	console.log(state);
-	// Fungsi untuk menambah dan mengurangi quantity
+
 	const incrementQuantity = () => setQuantity((prev) => prev + 1);
 	const decrementQuantity = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
-
-	// Gambar produk
-	const images = [
-		"https://picsum.photos/200/200?random=1",
-		"https://picsum.photos/200/200?random=2",
-		"https://picsum.photos/200/200?random=3",
-		"https://picsum.photos/100/100?random=4",
-	];
 
 	return (
 		<div className="bg-white pt-2 flex items-center justify-center">

@@ -5,9 +5,12 @@ import { categories } from "@/lib/data";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Categories() {
 	const [visibleCategories, setVisibleCategories] = useState<string[]>([]);
+	const router = useRouter();
 
 	const toggleCategory = (categoryId: string) => {
 		setVisibleCategories((prev) =>
@@ -42,7 +45,10 @@ export default function Categories() {
 									{category.categoryItems.map((item) => (
 										<li
 											key={item.itemId}
-											className="border-black border-2 p-2 bg-white hover:bg-[#fa8cef] hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] rounded-md cursor-pointer transition-all duration-200">
+											className="border-black border-2 p-2 bg-white hover:bg-[#fa8cef] hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] rounded-md cursor-pointer transition-all duration-200"
+											onClick={() =>
+												router.push(`/category/${category.categoryNameId}/${item.itemId}`)
+											}>
 											{item.itemName}
 										</li>
 									))}
