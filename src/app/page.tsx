@@ -4,7 +4,11 @@ import Banners from "@/components/Banners";
 import Card from "@/components/Card";
 import CardProduct from "@/components/CardProduct";
 import Categories from "@/components/Categories";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Organisms/Footer";
+import Banners2 from "@/components/Organisms/Banners2";
+import Categories2 from "@/components/Organisms/Categories2";
+import CategoryBanner from "@/components/Organisms/CategoryBanner";
+import { Comments } from "@/components/Organisms/Comments";
 import { products } from "@/lib/data";
 import { useState } from "react";
 
@@ -28,36 +32,13 @@ export default function Page() {
 	// ];
 
 	return (
-		<div className="min-h-screen bg-white flex flex-col">
-			<main className="container mx-auto mt-8 px-4 flex-grow">
-				<Banners />
-				<div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-					<div className="md:col-span-full">
-						<Categories />
-					</div>
-					<div className="md:col-span-4">
-						<div className="flex justify-between items-center mb-6">
-							<h2 className="text-3xl font-bold transform -rotate-1">Featured Products</h2>
-						</div>
-						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-							{featuredProducts.map((product) => (
-								<CardProduct key={product.id} {...product} />
-							))}
-						</div>
-					</div>
-					<div className="md:col-span-2 lg:col-span-3">
-						<div className="flex justify-between items-center mb-6">
-							<h2 className="text-3xl font-bold transform -rotate-1">Anniversary</h2>
-						</div>
-						<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-							{nonFeaturedProducts.map((product) => (
-								<CardProduct key={product.id} {...product} />
-							))}
-						</div>
-					</div>
-				</div>
+		<div className="min-h-screen bg-gray-50 flex flex-col">
+			<main className="container mx-auto mt-24 px-4 flex-grow">
+				<Banners2 />
+				<Categories2 />
+				<Comments/>
 			</main>
-			<Footer />;
+			<Footer />
 		</div>
 	);
 }
