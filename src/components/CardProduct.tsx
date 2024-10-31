@@ -24,7 +24,7 @@ export default function CardProduct({
     const router = useRouter()
 
 	return (
-		<div className="w-full max-w-md bg-white-300 border-4 border-black hover:shadow-[8px_8px_0px_rgba(0,0,0,1)] transition-all cursor-pointer" onClick={() => router.push(`/${id}`)}>
+		<div className="w-full max-w-md bg-white-300 border-4 border-black hover:shadow-[8px_8px_0px_rgba(0,0,0,1)] transition-all cursor-pointer" onClick={() => router.push(`/product/${id}`)}>
 			<div className="relative">
 				<img src={images.length > 0 ? images[0] : ""} alt={name} className="w-full h-48 object-cover border-b-4 border-black" />
 				{isNew && (
@@ -40,7 +40,7 @@ export default function CardProduct({
 			</div>
 			<div className="p-4">
 				<h2 className="text-2xl font-extrabold mb-2 font-mono">{name.toUpperCase()}</h2>
-				<p className="text-lg mb-4 font-mono">{description}</p>
+				{/* <p className="text-lg mb-4 font-mono">{description}</p> */}
 				<div className="flex justify-between items-center">
 					<p className="text-3xl font-bold font-mono">${price.toFixed(2)}</p>
 				</div>

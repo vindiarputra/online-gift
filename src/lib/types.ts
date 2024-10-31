@@ -1,6 +1,8 @@
 export type Categories = {
 	categoryName: string;
 	categoryNameId: string;
+	description: string;
+	image: string
 	categoryItems: {
 		itemName: string;
 		itemId: string;

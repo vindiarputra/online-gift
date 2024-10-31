@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Gift, Cake, PartyPopper, Star, Tag } from "lucide-react";
@@ -62,7 +64,7 @@ const promos = [
 	},
 ];
 
-export default function GiftSliderBanner() {
+export default function CategoryBanners() {
 	const [currentPromo, setCurrentPromo] = useState(0);
 	const [direction, setDirection] = useState(0);
 
@@ -98,7 +100,7 @@ export default function GiftSliderBanner() {
 	};
 
 	return (
-		<div className="relative w-full h-[500px] md:h-[400px] lg:h-[500px] overflow-hidden rounded-xl">
+		<div className="relative w-full h-[500px] md:h-[400px] lg:h-[500px] overflow-hidden rounded-xl ">
 			<AnimatePresence initial={false} custom={direction}>
 				<motion.div
 					key={currentPromo}

@@ -31,7 +31,7 @@ export default function Navbar() {
 
 	return (
 		<nav
-			className={`bg-white p-4 border-b-2 border-black fixed w-full z-20 transition-transform duration-300 ease-in-out ${
+			className={`bg-white p-4 border-b-2 border-black fixed w-full z-20 transition-transform duration-300 ease-in-out top-0 ${
 				isVisible ? "translate-y-0" : "-translate-y-full"
 			}`}>
 			<div className="max-w-6xl mx-auto">

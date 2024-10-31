@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { categories } from "@/lib/data";
+import { CATEGORIES } from "@/lib/data";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -22,7 +22,7 @@ export default function Categories() {
 		<div className="w-full mx-auto mt-8 px-4">
 			<h2 className="text-3xl font-bold mb-6 transform -rotate-1">Categories</h2>
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-				{categories.map((category) => (
+				{CATEGORIES.map((category) => (
 					<Card
 						key={category.categoryNameId}
 						className="border-2 border-black hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all duration-200 cursor-pointer h-max"
