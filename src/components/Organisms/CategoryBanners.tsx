@@ -143,13 +143,13 @@ export default function CategoryBanners() {
 			</AnimatePresence>
 
 			<button
-				className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 transition-all duration-200 z-20"
+				className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 transition-all duration-200 z-10"
 				onClick={() => navigate(-1)}
 				aria-label="Previous banner">
 				<ChevronLeft className="w-6 h-6 text-purple-600" />
 			</button>
 			<button
-				className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 transition-all duration-200 z-20"
+				className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 transition-all duration-200 z-10"
 				onClick={() => navigate(1)}
 				aria-label="Next banner">
 				<ChevronRight className="w-6 h-6 text-purple-600" />

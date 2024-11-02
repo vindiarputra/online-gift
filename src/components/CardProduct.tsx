@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface ProductCardProps {
 	id: string;
@@ -21,28 +22,43 @@ export default function CardProduct({
 	isNew,
 	onSale,
 }: ProductCardProps) {
-    const router = useRouter()
+	const router = useRouter();
+
+	const priceFormatted = new Intl.NumberFormat("id-ID", {
+		style: "currency",
+		currency: "IDR",
+	}).format(price);
 
 	return (
-		<div className="w-full max-w-md bg-white-300 border-4 border-black hover:shadow-[8px_8px_0px_rgba(0,0,0,1)] transition-all cursor-pointer" onClick={() => router.push(`/product/${id}`)}>
+		<div
+			className="w-full lg:w-64  bg-white-300 border-4 border-black hover:shadow-[8px_8px_0px_rgba(0,0,0,1)] transition-all cursor-pointer flex flex-col h-full"
+			onClick={() => router.push(`/product/${id}`)}>
 			<div className="relative">
-				<img src={images.length > 0 ? images[0] : ""} alt={name} className="w-full h-48 object-cover border-b-4 border-black" />
+				<Image
+					src={images.length > 0 ? images[0] : "/placeholder.svg"}
+					alt={name}
+					width={400}
+					height={200}
+					className="w-full h-48 sm:h-56 md:h-64  object-cover border-b-4 border-black"
+				/>
 				{isNew && (
-					<div className="absolute -top-2 -left-2 bg-blue-500 text-white text-xl font-bold py-1 px-3 transform -rotate-12 border-2 border-black">
+					<div className="absolute -top-2 -left-2 bg-blue-500 text-white text-sm sm:text-base md:text-lg lg:text-xl font-bold py-1 px-2 sm:px-3 transform -rotate-12 border-2 border-black">
 						NEW!
 					</div>
 				)}
 				{onSale && (
-					<div className="absolute -top-2 -right-2 bg-red-500 text-white text-xl font-bold py-1 px-3 transform rotate-12 border-2 border-black">
+					<div className="absolute -top-2 -right-2 bg-red-500 text-white text-sm sm:text-base md:text-lg lg:text-xl font-bold py-1 px-2 sm:px-3 transform rotate-12 border-2 border-black">
 						SALE!
 					</div>
 				)}
 			</div>
-			<div className="p-4">
-				<h2 className="text-2xl font-extrabold mb-2 font-mono">{name.toUpperCase()}</h2>
-				{/* <p className="text-lg mb-4 font-mono">{description}</p> */}
-				<div className="flex justify-between items-center">
-					<p className="text-3xl font-bold font-mono">${price.toFixed(2)}</p>
+			<div className="p-2 sm:p-3 md:p-4 flex flex-col flex-grow">
+				<h2 className="text-lg sm:text-xl md:text-2xl font-extrabold mb-1 sm:mb-2 font-mono">
+					{name.toUpperCase()}
+				</h2>
+				
+				<div className="mt-auto">
+					<p className="text-base sm:text-lg md:text-xl font-bold font-mono">{priceFormatted}</p>
 				</div>
 			</div>
 		</div>

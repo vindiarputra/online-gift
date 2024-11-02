@@ -43,7 +43,7 @@ export default function DrawerHistory({ isOpen, onClose }: DrawerHistoryProps) {
 
 	return (
 		<div
-			className={`fixed inset-y-0 right-0 w-full sm:w-96 bg-white border-l-4 border-black transform ${
+			className={`fixed h-screen  mt-[72px]   inset-y-0 right-0 w-full sm:w-96 bg-white border-2 border-black transform ${
 				isOpen ? "translate-x-0" : "translate-x-full"
 			} transition-transform duration-300 ease-in-out z-50`}>
 			<div className="h-full flex flex-col">

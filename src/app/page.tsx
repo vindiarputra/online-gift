@@ -15,7 +15,7 @@ export default function Page() {
 				<HomeCategories />
 				<Comments />
 			</main>
-			<Footer />
+			
 		</div>
 	);
 }

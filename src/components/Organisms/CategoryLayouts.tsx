@@ -13,11 +13,11 @@ const CategoryLayouts: FC<CategoryLayoutsProps> = ({ categoryId }) => {
 	return (
 		<div className="w-full p-4 mt-6 flex flex-col space-y-4">
 			<h2 className="text-3xl font-bold">{currentCategory?.categoryName}</h2>
-			<div className="text-lg font-semibold max-w-[75%] text-slate-800">
+			<div className="text-lg font-semibold max-w-[75%] text-slate-600 pl-4">
 				{currentCategory?.description}
 			</div>
 			<h2 className="text-3xl font-bold ">Featured Products</h2>
-			<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+			<div className="grid grid-cols-1 min-[500px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-8">
 				{featuredProducts.map((product) => (
 					<CardProduct
 						key={product.id}
@@ -32,7 +32,7 @@ const CategoryLayouts: FC<CategoryLayoutsProps> = ({ categoryId }) => {
 				))}
 			</div>
 			<h2 className="text-3xl font-bold ">Featured Products</h2>
-			<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+			<div className="grid grid-cols-1 min-[500px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-8">
 				{currentProducts.map((product) => (
 					<CardProduct
 						key={product.id}

@@ -1,3 +1,9 @@
+type ColorOption = {
+	name: string;
+	image: string;
+	stock: number;
+};
+
 export type Categories = {
 	categoryName: string;
 	categoryNameId: string;
@@ -23,4 +29,5 @@ export type Products = {
 	isFeatured: boolean;
 	createdAt: string;
 	updatedAt: string;
+	colors: ColorOption[]
 }[];
