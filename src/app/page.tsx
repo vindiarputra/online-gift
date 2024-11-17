@@ -4,7 +4,7 @@ import HomeCategories from "@/components/Organisms/HomeCategories";
 import PromoBanners from "@/components/Organisms/PromoBanners";
 import { supabase } from "@/lib/utils";
 export const revalidate = 0
-export const getDataCategories = async () => {
+const getDataCategories = async () => {
 	try {
 		const { data, error } = await supabase.from("categories").select(`*, bannerId(*)`);
 		if (error) {
