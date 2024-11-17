@@ -2,69 +2,55 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Gift, Cake, PartyPopper, Star, Tag } from "lucide-react";
+import { ChevronLeft, ChevronRight, Gift, Cake, PartyPopper, Star, Tag, Truck } from "lucide-react";
 import Image from "next/image";
 
-const banners = [
-	{
-		title: "Birthday Bonanza",
-		description: "Discover perfect gifts to make their special day unforgettable!",
-		image: "/images/sas.jpg",
-		gradient: "from-pink-300 via-purple-300 to-indigo-300",
-		icon: <Gift />,
-	},
-	{
-		title: "Anniversary Treasures",
-		description: "Celebrate love with our curated selection of anniversary gifts!",
-		image: "/images/sumin.jpg",
-		gradient: "from-red-200 via-pink-300 to-yellow-200",
-		icon: <Cake />,
-	},
-	{
-		title: "Holiday Cheer",
-		description: "Spread joy with our festive collection of holiday presents!",
-		image: "/images/sas.jpg",
-		gradient: "from-green-200 via-teal-300 to-blue-200",
-		icon: <PartyPopper />,
-	},
-	{
-		title: "Just Because",
-		description: "Show you care any day with our 'just because' gift ideas!",
-		image: "/images/sas.jpg",
-		gradient: "from-yellow-300 via-orange-300 to-pink-300",
-		icon: <Star />,
-    },
-    
-];
 
 const promos = [
 	{
 		title: "Special 20% Off!",
 		description: "Grab our limited-time 20% discount on all items!",
-		image: "/images/sumin.jpg",
+		image: "/images/banner/diskon.png",
 		color: "from-purple-500 via-pink-500 to-red-500",
 		gradient: "from-pink-300 via-purple-300 to-indigo-300",
 		icon: <Tag />,
 	},
 	{
-		title: "Free Shipping Weekend",
-		description: "Enjoy free shipping on all orders this weekend only!",
-		image: "/images/sumin2.jpg",
-		color: "from-yellow-400 via-orange-500 to-red-500",
-		gradient: "from-red-200 via-pink-300 to-yellow-200",
-		icon: <Gift />,
+		title: "Free Shipping!",
+		description: "Enjoy free shipping on orders above $50. Limited time offer!",
+		image: "/images/banner/truck.png",
+		color: "from-blue-500 via-teal-500 to-green-500",
+		gradient: "from-blue-300 via-teal-300 to-green-300",
+		icon: <Truck />,
 	},
 	{
-		title: "Buy One Get One Free",
-		description: "Celebrate with our BOGO promo on selected items!",
-		image: "/images/sas.jpg",
-		color: "from-green-400 via-teal-500 to-blue-600",
-		gradient: "from-yellow-300 via-orange-300 to-pink-300",
-		icon: <Tag />,
+		title: "Buy 1 Get 1 Free!",
+		description: "Don't miss our exclusive Buy 1 Get 1 Free deal on selected items!",
+		image: "/images/banner/free.png",
+		color: "from-yellow-500 via-orange-500 to-red-500",
+		gradient: "from-yellow-300 via-orange-300 to-red-300",
+		icon: <Gift />,
 	},
+
+	// {
+	// 	title: "Free Shipping Weekend",
+	// 	description: "Enjoy free shipping on all orders this weekend only!",
+	// 	image: "/images/sumin2.jpg",
+	// 	color: "from-yellow-400 via-orange-500 to-red-500",
+	// 	gradient: "from-red-200 via-pink-300 to-yellow-200",
+	// 	icon: <Gift />,
+	// },
+	// {
+	// 	title: "Buy One Get One Free",
+	// 	description: "Celebrate with our BOGO promo on selected items!",
+	// 	image: "/images/sas.jpg",
+	// 	color: "from-green-400 via-teal-500 to-blue-600",
+	// 	gradient: "from-yellow-300 via-orange-300 to-pink-300",
+	// 	icon: <Tag />,
+	// },
 ];
 
-export default function CategoryBanners() {
+export default function PromoBanners() {
 	const [currentPromo, setCurrentPromo] = useState(0);
 	const [direction, setDirection] = useState(0);
 
@@ -115,7 +101,7 @@ export default function CategoryBanners() {
 					}}
 					className={`absolute inset-0 w-full h-full bg-gradient-to-br ${promos[currentPromo].gradient}`}>
 					<div className="relative z-10 flex flex-col-reverse md:flex-row h-full">
-						<div className="flex flex-col items-center md:items-start justify-center w-full md:w-1/2 h-full p-6 md:p-20 text-center md:text-left ">
+						<div className="flex flex-col items-center md:items-start justify-center w-full md:w-1/2 h-full p-6  md:p-20 text-center md:text-left ">
 							<div className="mb-4 p-3 bg-white bg-opacity-80 rounded-full shadow-lg">
 								{promos[currentPromo].icon}
 							</div>
@@ -125,7 +111,7 @@ export default function CategoryBanners() {
 							<p className="text-sm md:text-lg lg:text-xl text-white drop-shadow">
 								{promos[currentPromo].description}
 							</p>
-							<button className="mt-4 md:mt-6 px-4 py-2 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-white text-purple-600 rounded-full hover:bg-opacity-90 transition-colors duration-300 transform hover:scale-105 shadow-lg">
+							<button disabled className="mt-4 md:mt-6 px-4 py-2 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-white text-purple-600 rounded-full hover:bg-opacity-90 transition-colors duration-300 transform hover:scale-105 shadow-lg">
 								Explore Gifts
 							</button>
 						</div>
@@ -156,7 +142,7 @@ export default function CategoryBanners() {
 			</button>
 
 			<div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-				{banners.map((_, index) => (
+				{promos.map((_, index) => (
 					<button
 						key={index}
 						className={`w-3 h-3 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 ${

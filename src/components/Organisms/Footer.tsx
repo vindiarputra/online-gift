@@ -1,223 +1,131 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { Gift, Facebook, Instagram, Twitter, Mail, MapPin, Phone } from "lucide-react";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function Footer() {
-	const [expandedSection, setExpandedSection] = useState<string | null>(null);
-	const [email, setEmail] = useState("");
-	const [isEmailValid, setIsEmailValid] = useState(false);
 
-	const toggleSection = (section: string) => {
-		setExpandedSection(expandedSection === section ? null : section);
-	};
-
-	useEffect(() => {
-		setIsEmailValid(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
-	}, [email]);
-
-	const footerSections = [
-		{
-			title: "Discover",
-			links: [
-				{ name: "Our Story", href: "/about" },
-				{ name: "Gift Finder", href: "/gift-finder" },
-				{ name: "Gift Cards", href: "/gift-cards" },
-			],
-		},
-		{
-			title: "Customer Care",
-			links: [
-				{ name: "FAQs", href: "/faqs" },
-				{ name: "Shipping", href: "/shipping" },
-				{ name: "Returns", href: "/returns" },
-			],
-		},
-	];
-
-	const giftBoxes = [...Array(20)].map((_, i) => {
-		const side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
-		const position = Math.random() * 100;
-		let initial, animate;
-
-		switch (side) {
-			case 0: // top
-				initial = { top: -50, left: `${position}%` };
-				animate = { top: "100%", left: `${position}%` };
-				break;
-			case 1: // right
-				initial = { top: `${position}%`, right: -50 };
-				animate = { top: `${position}%`, right: "100%" };
-				break;
-			case 2: // bottom
-				initial = { bottom: -50, left: `${position}%` };
-				animate = { bottom: "100%", left: `${position}%` };
-				break;
-			case 3: // left
-				initial = { top: `${position}%`, left: -50 };
-				animate = { top: `${position}%`, left: "100%" };
-				break;
-		}
-
-		return (
-			<motion.div
-				key={i}
-				className="absolute text-accent/20"
-				initial={initial}
-				animate={animate}
-				transition={{
-					duration: Math.random() * 10 + 15,
-					repeat: Infinity,
-					ease: "linear",
-					delay: Math.random() * 20,
-				}}>
-				<Gift size={48} />
-			</motion.div>
-		);
-	});
 
 	return (
-		<footer className="bg-gradient-to-b from-primary/90 to-primary text-primary-foreground pt-12 pb-6 relative overflow-hidden bottom">
-			{/* Animated gift boxes background */}
-			{giftBoxes}
+		<footer className="bg-blue-100/80 font-sans dark:bg-gray-900">
+			<div className="container px-6 py-12 mx-auto">
+				<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
+					<div className="sm:col-span-2">
+						<h1 className="max-w-lg text-xl font-semibold tracking-tight text-gray-800 xl:text-2xl dark:text-white">
+							Subscribe our newsletter to get an update.
+						</h1>
 
-			<div className="container mx-auto px-4 relative z-10">
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-					{/* Logo and tagline */}
-					<div className="col-span-1 lg:col-span-2 flex flex-col items-center lg:items-start">
-						<Link href="/" className="flex items-center mb-4 group">
-							<motion.div whileHover={{ rotate: 360, scale: 1.2 }} transition={{ duration: 0.5 }}>
-								<Gift
-									size={48}
-									className="text-accent mr-2 group-hover:text-secondary transition-colors duration-300"
-								/>
-							</motion.div>
-							<span className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent to-secondary">
-								GiftOnline
-							</span>
-						</Link>
-						<p className="text-center lg:text-left text-lg italic mb-4">
-							"Unwrap happiness, one click at a time"
-						</p>
-						<div className="flex space-x-4 mb-4">
-							<TooltipProvider>
-								{[
-									{ icon: MapPin, tooltip: "123 Gift Street, Presentville", href: "/locations" },
-									{ icon: Phone, tooltip: "+1 (555) 123-4567", href: "tel:+15551234567" },
-									{
-										icon: Mail,
-										tooltip: "hello@giftonline.com",
-										href: "mailto:hello@giftonline.com",
-									},
-								].map((item) => (
-									<Tooltip key={item.tooltip}>
-										<TooltipTrigger asChild>
-											<Link
-												href={item.href}
-												className="hover:text-accent transition-colors duration-200">
-												<item.icon size={24} />
-											</Link>
-										</TooltipTrigger>
-										<TooltipContent>
-											<p>{item.tooltip}</p>
-										</TooltipContent>
-									</Tooltip>
-								))}
-							</TooltipProvider>
-						</div>
-					</div>
-
-					{/* Footer sections */}
-					{footerSections.map((section) => (
-						<div key={section.title} className="col-span-1">
-							<h3 className="text-xl font-semibold mb-4 flex items-center">
-								<motion.span
-									initial={{ width: 0 }}
-									animate={{ width: "auto" }}
-									transition={{ duration: 0.5 }}
-									className="h-1 bg-accent mr-2 inline-block"
-								/>
-								{section.title}
-							</h3>
-							<ul className="space-y-2">
-								{section.links.map((link) => (
-									<motion.li
-										key={link.name}
-										whileHover={{ x: 5 }}
-										transition={{ type: "spring", stiffness: 300 }}>
-										<Link
-											href={link.href}
-											className="hover:text-accent transition-colors duration-200">
-											{link.name}
-										</Link>
-									</motion.li>
-								))}
-							</ul>
-						</div>
-					))}
-
-					{/* Newsletter signup */}
-					<div className="col-span-1 lg:col-span-2">
-						<h3 className="text-xl font-semibold mb-4">Join Our Mailing List</h3>
-						<p className="mb-4">Be the first to know about new gifts and exclusive offers!</p>
-						<form onSubmit={(e) => e.preventDefault()} className="flex flex-col space-y-2">
-							<Input
-								type="email"
-								placeholder="Your email address"
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
-								className="bg-primary-foreground/10 border-accent"
+						<div className="flex flex-col mx-auto mt-6 space-y-3 md:space-y-0 md:flex-row">
+							<input
+								id="email"
+								type="text"
+								className="px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
+								placeholder="Email Address"
 							/>
-							<Button
-								type="submit"
-								disabled={!isEmailValid}
-								className="bg-accent hover:bg-accent/90 text-accent-foreground transition-colors duration-200">
+
+							<button className="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-white transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-gray-800 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300 focus:ring-opacity-80">
 								Subscribe
-							</Button>
-						</form>
+							</button>
+						</div>
+					</div>
+
+					<div>
+						<p className="font-semibold text-gray-800 dark:text-white">Quick Link</p>
+
+						<div className="flex flex-col items-start mt-5 space-y-2">
+							<p className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">
+								Home
+							</p>
+							<p className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">
+								Who We Are
+							</p>
+							<p className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">
+								Our Philosophy
+							</p>
+						</div>
+					</div>
+
+					<div>
+						<p className="font-semibold text-gray-800 dark:text-white">Industries</p>
+
+						<div className="flex flex-col items-start mt-5 space-y-2">
+							<p className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">
+								Retail & E-Commerce
+							</p>
+							<p className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">
+								Information Technology
+							</p>
+							<p className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:cursor-pointer hover:text-blue-500">
+								Finance & Insurance
+							</p>
+						</div>
 					</div>
 				</div>
 
-				{/* Social media and legal */}
-				<div className="mt-8 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center">
-					<div className="flex space-x-4 mb-4 md:mb-0">
-						{[
-							{ icon: Facebook, href: "https://facebook.com", name: "Facebook" },
-							{ icon: Instagram, href: "https://instagram.com", name: "Instagram" },
-							{ icon: Twitter, href: "https://twitter.com", name: "Twitter" },
-						].map((social) => (
-							<motion.a
-								key={social.name}
-								href={social.href}
-								whileHover={{ y: -5, scale: 1.1 }}
-								className="hover:text-accent transition-colors duration-200">
-								<social.icon size={24} />
-								<span className="sr-only">{social.name}</span>
-							</motion.a>
-						))}
+				<hr className="my-6 border-gray-200 md:my-8 dark:border-gray-700 h-2" />
+
+				<div className="sm:flex sm:items-center sm:justify-between">
+					<div className="flex flex-1 gap-4 hover:cursor-pointer">
+						<img
+							src="https://www.svgrepo.com/show/303139/google-play-badge-logo.svg"
+							width="130"
+							height="110"
+							alt=""
+						/>
+						<img
+							src="https://www.svgrepo.com/show/303128/download-on-the-app-store-apple-logo.svg"
+							width="130"
+							height="110"
+							alt=""
+						/>
 					</div>
-					<div className="text-sm text-center md:text-right">
-						<p>&copy; {new Date().getFullYear()} GiftOnline. Spreading joy worldwide.</p>
-						<nav className="flex justify-center md:justify-end gap-4 mt-2">
-							<Link href="/privacy" className="hover:text-accent transition-colors duration-200">
-								Privacy
-							</Link>
-							<Link href="/terms" className="hover:text-accent transition-colors duration-200">
-								Terms
-							</Link>
-							<Link
-								href="/accessibility"
-								className="hover:text-accent transition-colors duration-200">
-								Accessibility
-							</Link>
-						</nav>
+
+					<div className="flex gap-4 hover:cursor-pointer">
+						<img
+							src="https://www.svgrepo.com/show/303114/facebook-3-logo.svg"
+							width="30"
+							height="30"
+							alt="fb"
+						/>
+						<img
+							src="https://www.svgrepo.com/show/303115/twitter-3-logo.svg"
+							width="30"
+							height="30"
+							alt="tw"
+						/>
+						<img
+							src="https://www.svgrepo.com/show/303145/instagram-2-1-logo.svg"
+							width="30"
+							height="30"
+							alt="inst"
+						/>
+						<img
+							src="https://www.svgrepo.com/show/94698/github.svg"
+							className=""
+							width="30"
+							height="30"
+							alt="gt"
+						/>
+						<img
+							src="https://www.svgrepo.com/show/22037/path.svg"
+							width="30"
+							height="30"
+							alt="pn"
+						/>
+						<img
+							src="https://www.svgrepo.com/show/28145/linkedin.svg"
+							width="30"
+							height="30"
+							alt="in"
+						/>
+						<img
+							src="https://www.svgrepo.com/show/22048/dribbble.svg"
+							className=""
+							width="30"
+							height="30"
+							alt="db"
+						/>
 					</div>
 				</div>
+				<p className="font-sans p-8 text-start md:text-center md:text-lg md:p-4">
+					© 2024 You Company Inc. All rights reserved.
+				</p>
 			</div>
 		</footer>
 	);

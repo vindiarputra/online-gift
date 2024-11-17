@@ -6,6 +6,8 @@ import { CartProvider } from "@/context/CartContext";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/Organisms/Footer";
 
+export const revalidate = 0;
+
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
 	variable: "--font-geist-sans",
