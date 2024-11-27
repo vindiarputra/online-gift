@@ -90,7 +90,6 @@ export default function HomeCategories({
 					initial={{ opacity: 0, y: -50 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.5, ease: "easeOut" }}>
-					Online Gift Categories
 				</motion.h2>
 				<div className="space-y-12">
 					{categories.map((category, index) => (
