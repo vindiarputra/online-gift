@@ -26,7 +26,7 @@ export default async function Page() {
 	}));
 	return (
 		<div className="min-h-screen bg-gray-50 flex flex-col">
-			<main className="container mx-auto px-4 flex-grow mt-24">
+			<main className="container mx-auto px-4 flex-grow mt-32">
 				<PromoBanners />
 				<HomeCategories categories={formattedCategories} />
 				<Comments />

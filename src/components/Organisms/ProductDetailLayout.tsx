@@ -50,13 +50,15 @@ export default function ProductDetailLayout({
 	const [productData, setProduct] = useState(product);
 	const router = useRouter();
 	const { isSignedIn, user, isLoaded } = useUser();
+
+
 	const handleQuantityChange = (newQuantity: number) => {
 		setQuantity(Math.max(1, Math.min(newQuantity, product.stock)));
 	};
 
 	const { toast } = useToast();
 
-	const handleSubmit = async () => {
+	const handleAddTocart = async () => {
 		if (!isSignedIn) {
 			return router.push("/sign-in");
 		}
@@ -71,7 +73,7 @@ export default function ProductDetailLayout({
 				method: "POST",
 				body: JSON.stringify(dataToCart),
 			});
-			if (res.ok) {
+			if (res.status === 200) {
 				setLoading(false);
 				toast({
 					title: "Success",
@@ -79,11 +81,6 @@ export default function ProductDetailLayout({
 					className: "bg-green-500 text-white",
 				});
 			}
-			toast({
-				title: "Error",
-				description: "Failed to add product to cart",
-				variant: "destructive",
-			});
 		} catch (error) {
 			toast({
 				title: "Error",
@@ -168,7 +165,7 @@ export default function ProductDetailLayout({
 						</Button>
 					</div>
 					<div className="flex space-x-4">
-						<Button className="flex-1" onClick={handleSubmit} disabled={loading}>
+						<Button className="flex-1" onClick={handleAddTocart} disabled={loading}>
 							<ShoppingCart className="w-5 h-5 mr-2" />
 							Add to Cart
 						</Button>

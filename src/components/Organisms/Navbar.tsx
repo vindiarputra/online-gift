@@ -13,6 +13,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 
 export default function Navbar() {
 	const router = useRouter();
@@ -43,8 +44,8 @@ export default function Navbar() {
 			<div className="max-w-6xl mx-auto">
 				<div className="flex justify-between items-center">
 					{/* Logo */}
-					<div className="text-2xl font-bold cursor-pointer" onClick={() => router.push("/")}>
-						"Logo"
+					<div className="flex items-center">
+						<Image src="/images/logo/OG_.svg" alt="Logo" width={60} height={50} />
 					</div>
 
 					{/* Desktop Menu */}
@@ -107,15 +108,6 @@ export default function Navbar() {
 								</Button>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent className="w-56 bg-white border-2 border-black p-2">
-								<DropdownMenuItem asChild>
-									<Button
-										className="w-full bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
-                   shadow-[0_4px_0_0_#000] transition-all duration-300
-                   active:top-[2px] active:shadow-none my-2"
-										onClick={() => router.push("/cart")}>
-										<ShoppingCart className="mr-2" /> Cart
-									</Button>
-								</DropdownMenuItem>
 								{!isSignedIn ? (
 									<DropdownMenuItem asChild>
 										<Button
@@ -139,6 +131,15 @@ export default function Navbar() {
 										</div>
 									</DropdownMenuItem>
 								)}
+								<DropdownMenuItem asChild>
+									<Button
+										className="w-full bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
+                   shadow-[0_4px_0_0_#000] transition-all duration-300
+                   active:top-[2px] active:shadow-none my-2"
+										onClick={() => router.push("/cart")}>
+										<ShoppingCart className="mr-2" /> Cart
+									</Button>
+								</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>
 					</div>
