@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, ShoppingCart, User2 } from "lucide-react";
+import { GiftIcon, Menu, ShoppingCart, User2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
@@ -57,7 +57,7 @@ export default function Navbar() {
              shadow-[0_4px_0_0_#000] transition-all duration-300
              active:top-[2px] active:shadow-none"
 							onClick={() => router.push("/cart")}>
-							<ShoppingCart />
+							<GiftIcon />
 						</Button>
 
 						<div className="w-10 flex items-center">
@@ -138,7 +138,7 @@ export default function Navbar() {
                    shadow-[0_4px_0_0_#000] transition-all duration-300
                    active:top-[2px] active:shadow-none my-2"
 										onClick={() => router.push("/cart")}>
-										<ShoppingCart className="mr-2" /> Cart
+										<GiftIcon className="mr-2" /> Cart
 									</Button>
 								</DropdownMenuItem>
 							</DropdownMenuContent>

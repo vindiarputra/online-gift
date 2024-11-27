@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { ShoppingCart, Heart, Plus, Minus } from "lucide-react";
+import { ShoppingCart, Heart, Plus, Minus, GiftIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -77,7 +77,7 @@ export default function ProductDetailLayout({
 				setLoading(false);
 				toast({
 					title: "Success",
-					description: "Product added to cart",
+					description: "Product added to Box",
 					className: "bg-green-500 text-white",
 				});
 			}
@@ -91,7 +91,7 @@ export default function ProductDetailLayout({
 	};
 
 	return (
-		<div className="container mx-auto px-4 py-8 mt-16">
+		<div className="container mx-auto px-4 py-8 mt-24">
 			<div className="grid md:grid-cols-2 gap-8">
 				<div className="space-y-4">
 					{/* Main Preview Image */}
@@ -166,8 +166,8 @@ export default function ProductDetailLayout({
 					</div>
 					<div className="flex space-x-4">
 						<Button className="flex-1" onClick={handleAddTocart} disabled={loading}>
-							<ShoppingCart className="w-5 h-5 mr-2" />
-							Add to Cart
+							Add to Box
+							<GiftIcon className="w-5 h-5" />
 						</Button>
 						<Button variant="outline" aria-label="Add to favorites">
 							<Heart className="w-5 h-5" />
