@@ -44,7 +44,8 @@ export default function Navbar() {
 			<div className="max-w-6xl mx-auto">
 				<div className="flex justify-between items-center">
 					{/* Logo */}
-					<div className="flex items-center">
+					
+					<div className="flex items-center" onClick={() => router.push("/")}>
 						<Image src="/images/logo/OG_.svg" alt="Logo" width={60} height={50} />
 					</div>
 
