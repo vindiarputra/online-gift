@@ -10,6 +10,7 @@ interface ProductDetailClientProps {
 	productsData: any[];
 }
 
+
 const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, productsData }) => {
 	return <ProductDetailLayout product={product} productsData={productsData} />;
 };

@@ -18,6 +18,7 @@ import CardProduct from "../CardProduct";
 import Autoplay from "embla-carousel-autoplay";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { useUser } from "@clerk/nextjs";
 
 interface Product {
 	id: string;
@@ -42,39 +43,55 @@ export default function ProductDetailLayout({
 	product: Product;
 	productsData: Product[] | null;
 }) {
-    const [quantity, setQuantity] = useState(1);
-    const [loading, setLoading] = useState(false)
+	const [quantity, setQuantity] = useState(1);
+	const [loading, setLoading] = useState(false);
 	const [selectedImage, setSelectedImage] = useState(product.images_url[0]?.url);
-    const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
-    const [productData, setProduct] = useState(product);
+	const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+	const [productData, setProduct] = useState(product);
 	const router = useRouter();
+	const { isSignedIn, user, isLoaded } = useUser();
 	const handleQuantityChange = (newQuantity: number) => {
 		setQuantity(Math.max(1, Math.min(newQuantity, product.stock)));
-    };
+	};
 
-    console.log(selectedImage)
-    
-    const { toast } = useToast();
+	const { toast } = useToast();
 
-    const handleSubmit = async () => {
-        setLoading(true)
-        const dataToCart = {
-            ...productData, quantity, image: selectedImage,
-        }
-        await fetch("/api/cart", {
-            method: "POST",
-            body: JSON.stringify(dataToCart),
-        }).then(() => {
-            setLoading(false)
-            toast({
-                title: "Success",
-                description: "Product added to cart",
-                className: "bg-green-500 text-white",
-            })
-        }).catch((err) => 
-            console.log(err)
-        )
-    }
+	const handleSubmit = async () => {
+		if (!isSignedIn) {
+			return router.push("/sign-in");
+		}
+		try {
+			setLoading(true);
+			const dataToCart = {
+				...productData,
+				quantity,
+				image: selectedImage,
+			};
+			const res = await fetch("/api/cart", {
+				method: "POST",
+				body: JSON.stringify(dataToCart),
+			});
+			if (res.ok) {
+				setLoading(false);
+				toast({
+					title: "Success",
+					description: "Product added to cart",
+					className: "bg-green-500 text-white",
+				});
+			}
+			toast({
+				title: "Error",
+				description: "Failed to add product to cart",
+				variant: "destructive",
+			});
+		} catch (error) {
+			toast({
+				title: "Error",
+				description: "Something Went Wrong",
+				variant: "destructive",
+			});
+		}
+	};
 
 	return (
 		<div className="container mx-auto px-4 py-8 mt-16">

@@ -5,6 +5,7 @@ import Navbar from "@/components/Organisms/Navbar";
 import { CartProvider } from "@/context/CartContext";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/Organisms/Footer";
+import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export const revalidate = 0;
 
@@ -30,15 +31,13 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={`${geistSans.variable} ${geistMono.variable}  antialiased`}>
-				<CartProvider>
-					<Navbar />
+		<ClerkProvider>
+			<html lang="en">
+				<body className={`${geistSans.variable} ${geistMono.variable}  antialiased`}>
 					{children}
-					<Footer />
-				</CartProvider>
-				<Toaster />
-			</body>
-		</html>
+					<Toaster />
+				</body>
+			</html>
+		</ClerkProvider>
 	);
 }

@@ -1,34 +1,37 @@
 "use client";
-import { Gift, Menu, ShoppingCart, X } from "lucide-react";
+
+import { Menu, ShoppingCart, User2 } from "lucide-react";
 import { useState, useEffect } from "react";
-import ProfileDropdown from "../Moleculs/ProfileDropdown";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
-import SearchBar from "../Moleculs/SearchBar";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import SearchProduct from "../Moleculs/SearchProduct";
+import { UserButton, useUser } from "@clerk/nextjs";
+import Link from "next/link";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
 	const router = useRouter();
 	const [isVisible, setIsVisible] = useState(true);
 	const [lastScrollY, setLastScrollY] = useState(0);
-	const [isOpen, setIsOpen] = useState(false);
-	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+	const { isSignedIn, user, isLoaded } = useUser();
 
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
-
 			if (currentScrollY > lastScrollY) {
 				setIsVisible(false);
 			} else {
 				setIsVisible(true);
 			}
-
 			setLastScrollY(currentScrollY);
 		};
 
 		window.addEventListener("scroll", handleScroll, { passive: true });
-
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, [lastScrollY]);
 
@@ -46,65 +49,98 @@ export default function Navbar() {
 
 					{/* Desktop Menu */}
 					<div className="hidden md:flex space-x-4 justify-center items-center">
-						<Dialog open={isOpen} onOpenChange={setIsOpen}>
-							<DialogTrigger asChild>
-								<Button
-									className={`
-										group relative overflow-hidden bg-white text-pink-600 hover:text-white
-										border-2 border-pink-400 hover:border-pink-600
-										transition-all duration-300 ease-in-out
-										px-6 py-3 rounded-full text-lg font-semibold
-									`}>
-									<span className="relative z-10 flex items-center gap-3">
-										<Gift className="w-6 h-6" />
-										<span>Find Perfect Gifts</span>
-									</span>
-									<span className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
-								</Button>
-							</DialogTrigger>
-							<DialogContent className="w-full max-w-[95vw] max-h-[90vh] overflow-y-auto">
-								<SearchBar isOpen={isOpen} setIsOpen={setIsOpen} />
-							</DialogContent>
-						</Dialog>
-						<Button variant="neobrutalism" onClick={() => router.push("/cart")}>
+						<SearchProduct />
+						<Button
+							className="relative bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
+             shadow-[0_4px_0_0_#000] transition-all duration-300
+             active:top-[2px] active:shadow-none"
+							onClick={() => router.push("/cart")}>
 							<ShoppingCart />
 						</Button>
-						<ProfileDropdown />
+
+						<div className="w-10 flex items-center">
+							{!isSignedIn ? (
+								<DropdownMenu>
+									<DropdownMenuTrigger asChild>
+										<div
+											className="flex h-10 w-10 rounded-full bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
+             shadow-[0_4px_0_0_#000] transition-all duration-300
+             active:top-[2px] active:shadow-none justify-center items-center">
+											<User2 />
+										</div>
+									</DropdownMenuTrigger>
+									<DropdownMenuContent className="w-56 bg-white border-2 border-black p-2">
+										<DropdownMenuItem asChild>
+											<Button
+												className="w-full bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
+                     shadow-[0_4px_0_0_#000] transition-all duration-300
+                     active:top-[2px] active:shadow-none my-2 cursor-pointer"
+												onClick={() => router.push("/sign-in")}>
+												<User2 className="mr-2" /> Sign In
+											</Button>
+										</DropdownMenuItem>
+									</DropdownMenuContent>
+								</DropdownMenu>
+							) : (
+								<UserButton
+									appearance={{
+										elements: {
+											userButtonAvatarBox: "w-10 h-10",
+										},
+									}}
+								/>
+							)}
+						</div>
 					</div>
 
-					{/* Mobile Menu Toggle */}
-					<div className="md:hidden flex items-center">
-						<Button
-							variant="ghost"
-							className="text-black"
-							onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-							{mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-						</Button>
-					</div>
-				</div>
+					{/* Mobile Menu (Dropdown) */}
 
-				{/* Mobile Menu */}
-				<div
-					className={`${
-						mobileMenuOpen ? "max-h-screen" : "max-h-0"
-					} transition-[max-height] duration-300 ease-in-out overflow-hidden md:hidden`}>
-					<div className="flex flex-col items-center space-y-4 mt-4">
-						<Dialog open={isOpen} onOpenChange={setIsOpen}>
-							<DialogTrigger asChild>
-								<Button className="w-full text-pink-600 border-2 border-pink-400 hover:border-pink-600">
-									<Gift className="w-6 h-6 mr-2" />
-									<span>Find Perfect Gifts</span>
+					<div className="md:hidden space-x-4">
+						<SearchProduct />
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<Button
+									className="relative bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
+                 shadow-[0_4px_0_0_#000] transition-all duration-300
+                 active:top-[2px] active:shadow-none">
+									<Menu />
 								</Button>
-							</DialogTrigger>
-							<DialogContent className="w-full max-w-[95vw] max-h-[90vh] overflow-y-auto">
-								<SearchBar isOpen={isOpen} setIsOpen={setIsOpen} />
-							</DialogContent>
-						</Dialog>
-						<Button variant="ghost" className="w-full" onClick={() => router.push("/cart")}>
-							<ShoppingCart className="mr-2" />
-							<span>View Cart</span>
-						</Button>
-						<ProfileDropdown />
+							</DropdownMenuTrigger>
+							<DropdownMenuContent className="w-56 bg-white border-2 border-black p-2">
+								<DropdownMenuItem asChild>
+									<Button
+										className="w-full bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
+                   shadow-[0_4px_0_0_#000] transition-all duration-300
+                   active:top-[2px] active:shadow-none my-2"
+										onClick={() => router.push("/cart")}>
+										<ShoppingCart className="mr-2" /> Cart
+									</Button>
+								</DropdownMenuItem>
+								{!isSignedIn ? (
+									<DropdownMenuItem asChild>
+										<Button
+											className="w-full bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
+                     shadow-[0_4px_0_0_#000] transition-all duration-300
+                     active:top-[2px] active:shadow-none my-2"
+											onClick={() => router.push("/sign-in")}>
+											<User2 className="mr-2" /> Sign In
+										</Button>
+									</DropdownMenuItem>
+								) : (
+									<DropdownMenuItem>
+										<div className="flex justify-center w-full my-2">
+											<UserButton
+												appearance={{
+													elements: {
+														userButtonAvatarBox: "w-10 h-10",
+													},
+												}}
+											/>
+										</div>
+									</DropdownMenuItem>
+								)}
+							</DropdownMenuContent>
+						</DropdownMenu>
 					</div>
 				</div>
 			</div>
