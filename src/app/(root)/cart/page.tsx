@@ -8,6 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
+declare global {
+	interface Window {
+		snap: any;
+	}
+}
+
 type CartItem = {
 	id: string;
 	label: string;
@@ -21,11 +27,14 @@ type CartItem = {
 	productId: string;
 };
 
+
+
 export default function CartPage() {
 	const router = useRouter();
 	const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-	const priceFormatted = (price: number) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(price);
+	const priceFormatted = (price: number) =>
+		new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(price);
 
 	const handleUpdateQuantity = (id: string, newQuantity: number) => {
 		setCartItems((prevItems) =>
@@ -42,7 +51,7 @@ export default function CartPage() {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ id }), 
+				body: JSON.stringify({ id }),
 			});
 
 			if (!res.ok) {
@@ -56,8 +65,63 @@ export default function CartPage() {
 		}
 	};
 
-
 	const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+	
+
+	const handleCheckout = async () => {
+		try {
+			const response = await fetch("/api/token", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					items: cartItems.map((item) => ({
+						id: item.id,
+						name: item.label,
+						price: item.price,
+						quantity: item.quantity,
+					})),
+				}),
+			});
+
+			if (!response.ok) {
+				const errorData = await response.json();
+				console.error("Checkout failed:", errorData.error);
+				return;
+			}
+
+			const { token } = await response.json();
+			window.snap.pay(token, {
+				onSuccess: () => {
+					// Menambahkan delay selama 2 detik (2000ms)
+					setTimeout(async () => {
+						try {
+							// Clear cart items on successful payment
+							const res = await fetch("/api/carts", {
+								method: "DELETE",
+								headers: { "Content-Type": "application/json" },
+							});
+
+							if (!res.ok) {
+								const errorData = await res.json();
+								console.log("Failed to clear cart:", errorData.error || "Unknown error");
+								return;
+							}
+
+							// Update UI to reflect empty cart
+							setCartItems([]);
+						} catch (error) {
+							console.error("Error clearing cart items:", error);
+						}
+					}, 3000); // Delay selama 2 detik
+				},
+			});
+
+		} catch (error) {
+			console.error("Error during checkout:", error);
+		}
+	};
 
 	useEffect(() => {
 		const getProductsCart = async () => {
@@ -71,6 +135,21 @@ export default function CartPage() {
 			}
 		};
 		getProductsCart();
+	}, []);
+
+	useEffect(() => {
+		const snapSrc = "https://app.sandbox.midtrans.com/snap/snap.js";
+		const clientKey = process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY;
+		const script = document.createElement("script");
+		script.src = snapSrc;
+		script.setAttribute("data-client-key", clientKey as string);
+		script.async = true;
+
+		document.body.appendChild(script);
+
+		return () => {
+			document.body.removeChild(script);
+		};
 	}, []);
 
 	return (
@@ -152,7 +231,7 @@ export default function CartPage() {
 								<Button variant="outline" onClick={() => router.push("/")}>
 									Continue Shopping
 								</Button>
-								<Button>Proceed to Checkout</Button>
+								<Button onClick={handleCheckout}>Proceed to Checkout</Button>
 							</div>
 						</div>
 					</CardFooter>
