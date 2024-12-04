@@ -61,7 +61,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
 				</div>
 
 				<div className="text-center text-sm text-muted-foreground mt-4">
-					&copy; {new Date().getFullYear()} Your Gift Shop. All rights reserved.
+					&copy; {new Date().getFullYear()} Online Gift. All rights reserved.
 				</div>
 			</div>
 		</div>
