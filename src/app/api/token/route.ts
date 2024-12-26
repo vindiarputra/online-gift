@@ -1,15 +1,19 @@
 import Midtrans from "midtrans-client";
 import { NextResponse } from "next/server";
 
+
+
+const MIDTRANS_SERVER_KEY = process.env.MIDTRANS_SERVER_KEY;
+
+if (!MIDTRANS_SERVER_KEY) {
+	throw new Error("MIDTRANS_SERVER_KEY is not set in environment variables");
+}
+
 let snap = new Midtrans.Snap({
 	isProduction: false,
-	serverKey: process.env.MIDTRANS_SERVER_KEY || "",
-	clientKey: process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY || "",
+	serverKey: MIDTRANS_SERVER_KEY ,
+	clientKey: process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY 
 });
-
-if (!process.env.MIDTRANS_SERVER_KEY || !process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY) {
-	throw new Error ("Environment variables not set");
-}
 
 export async function POST(request: Request) {
 	const { items } = await request.json();
