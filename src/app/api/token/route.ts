@@ -1,5 +1,5 @@
 import Midtrans from "midtrans-client";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 let snap = new Midtrans.Snap({
 	isProduction: false,
