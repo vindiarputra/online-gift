@@ -10,9 +10,9 @@ if (!MIDTRANS_SERVER_KEY) {
 }
 
 let snap = new Midtrans.Snap({
-	isProduction: false,
-	serverKey: MIDTRANS_SERVER_KEY ,
-	clientKey: process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY 
+	isProduction: process.env.NODE_ENV === "production",
+	serverKey: process.env.MIDTRANS_SERVER_KEY,
+	clientKey: process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY ,
 });
 
 export async function POST(request: Request) {
