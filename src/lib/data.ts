@@ -1,0 +1,303 @@
+import { Categories, Products } from "./types";
+
+export const CATEGORIES: Categories = [
+	{
+		categoryName: "Gifts For Him",
+		categoryNameId: "cat002",
+		description:
+			"A curated selection of exclusive gifts for men, highlighting style, practicality, and premium quality.",
+		image: "/images/categoryImages/ryangosling.jpg",
+		categoryItems: [
+			{ itemName: "Watches", itemId: "item005" },
+			{ itemName: "Gadgets", itemId: "item006" },
+			{ itemName: "Shaving Kits", itemId: "item007" },
+			{ itemName: "Fitness Gear", itemId: "item008" },
+			{ itemName: "Leather Accessories", itemId: "item009" },
+			{ itemName: "Sunglasses", itemId: "item010" },
+		],
+	},
+	{
+		categoryName: "Gifts For Her",
+		categoryNameId: "cat003",
+		description:
+			"An elegant collection of special gifts for women, celebrating beauty, sophistication, and charm.",
+		image: "/images/categoryImages/sumin.jpg",
+		categoryItems: [
+			{ itemName: "Jewelry", itemId: "item011" },
+			{ itemName: "Skincare", itemId: "item012" },
+			{ itemName: "Handbags", itemId: "item013" },
+			{ itemName: "Perfumes", itemId: "item014" },
+			{ itemName: "Scarves", itemId: "item015" },
+			{ itemName: "Cosmetic Sets", itemId: "item016" },
+		],
+	},
+];
+
+export const PRODUCTS: Products = [
+	// Products for "Gifts For Him"
+	{
+		id: "201",
+		name: "Complex II by Xavier Creation",
+		price: 390000,
+		description:
+			"Complex II is a Handmade Compact Leather Wallet from Xavier Creation.\nIt has a smaller size and is easy to carry anywhere with various colors made from 100% Genuine Leather (Vegetable Tanned Leather (Natural and Black) and Pull Up Leather (Navy)).\n\nComplex II provides just enough space in a compact size for your essentials.\n\nXavier Creation's products are carefully handcrafted and will only get better with age.\nOvertime the color will become richer, more unique, and full of character.\n\nMaterial : Cow Vegetable Tan\nColour : Natural\n\n3 Card slot\n2 Slot (money / cards)\n1 Hidden slot\n\nDimensions:\n11 cm Width x 7.5 cm Length x 1.5 cm thickness when folded",
+		categoryId: "cat002",
+		categoryItemId: "item005",
+		images: [
+			"/images/gift_for_him/dompet_thumbnail.jpg",
+			"/images/gift_for_him/dompet_natural.jpg",
+			"/images/gift_for_him/dompet_navy.jpg",
+		],
+		colors: [
+			{ name: "Natural", image: "/images/gift_for_him/dompet_natural.jpg", stock: 10 },
+			{ name: "Black", image: "/images/gift_for_him/dompet_thumbnail.jpg", stock: 5 },
+			{ name: "Navy", image: "/images/gift_for_him/dompet_navy.jpg", stock: 5 },
+		],
+		stock: 20,
+		isFeatured: true,
+		onSale: false,
+		isNew: true,
+		createdAt: "2023-01-01T00:00:00.000Z",
+		updatedAt: "2023-01-01T00:00:00.000Z",
+	},
+	{
+		id: "202",
+		name: "Rolex GMT Master 1675",
+		price: 1113165,
+		description:
+			"A remarkably rare and stunning stainless steel double signed Rolex GMT Master, reference 1675, from 1978, showcasing a beautifully patinated and vivid fuchsia bezel.\nIts matte black dial and cream-colored luminous hour markers elevate the design, attracting a world of travelers.\nIt is finished with a stainless steel oyster bracelet and folding clasp.\nThis watch is engraved with two names on the caseback. It is possible to remove upon request.\n\nReference Number: 1675\nModel: GMT Master\nMovement: Automatic\nCase Material: Stainless Steel\nBracelet Material: Stainless Steel\nDial: Matte Black\nCase Diameter: 40mm\nYear: 1978\nCondition: Vintage\nBox and Papers: No original box, no original papers\n\n100% Authenticity Guarantee",
+		categoryId: "cat002",
+		categoryItemId: "item005",
+		images: [
+			"/images/gift_for_him/watch/Rolex-Pepsi-indonesia-_1_700x.jpg",
+			"/images/gift_for_him/watch/Rolex-Pepsi-indonesia-_3_700x.jpg",
+			"/images/gift_for_him/watch/Rolex-Pepsi-indonesia-_4_700x.jpg",
+			"/images/gift_for_him/watch/Rolex-Pepsi-indonesia-_5_700x.jpg",
+		],
+		colors: [],
+		stock: 13,
+		isFeatured: false,
+		onSale: true,
+		isNew: false,
+		createdAt: "2023-03-15T00:00:00.000Z",
+		updatedAt: "2023-03-15T00:00:00.000Z",
+	},
+	{
+		id: "203",
+		name: "Leather Key Holder by Artisan Craft",
+		price: 150000,
+		description:
+			"A premium leather key holder crafted for those who appreciate quality and simplicity. Designed to keep your keys organized with style.\n\nFeatures:\n- Fits up to 6 keys\n- Compact and durable\n\nMaterial: Genuine Leather\nDimensions:\n10 cm Length x 2 cm Width",
+		categoryId: "cat002",
+		categoryItemId: "item005",
+		images: [
+			"/images/gift_for_him/key_holder_thumbnail.jpg",
+			"/images/gift_for_him/key_holder_brown.jpg",
+			"/images/gift_for_him/key_holder_black.jpg",
+		],
+		colors: [
+			{ name: "Brown", image: "/images/gift_for_him/key_holder_brown.jpg", stock: 15 },
+			{ name: "Black", image: "/images/gift_for_him/key_holder_black.jpg", stock: 10 },
+		],
+		stock: 25,
+		isFeatured: true,
+		onSale: false,
+		isNew: true,
+		createdAt: "2023-04-10T00:00:00.000Z",
+		updatedAt: "2023-04-10T00:00:00.000Z",
+	},
+	{
+		id: "204",
+		name: "Classic Leather Belt by Prime Belts",
+		price: 250000,
+		description:
+			"A classic leather belt that pairs well with both casual and formal attire. This belt is made from top-grain leather with a sturdy metal buckle.\n\nFeatures:\n- Adjustable size\n- Durable metal buckle\n- 100% Genuine Leather\n\nDimensions:\nWidth: 3.5 cm, Length: Adjustable (up to 120 cm)",
+		categoryId: "cat002",
+		categoryItemId: "item005",
+		images: [
+			"/images/gift_for_him/belt_thumbnail.jpg",
+			"/images/gift_for_him/belt_black.jpg",
+			"/images/gift_for_him/belt_brown.jpg",
+		],
+		colors: [
+			{ name: "Black", image: "/images/gift_for_him/belt_black.jpg", stock: 12 },
+			{ name: "Brown", image: "/images/gift_for_him/belt_brown.jpg", stock: 10 },
+		],
+		stock: 22,
+		isFeatured: false,
+		onSale: true,
+		isNew: false,
+		createdAt: "2023-02-10T00:00:00.000Z",
+		updatedAt: "2023-02-10T00:00:00.000Z",
+	},
+	{
+		id: "205",
+		name: "Travel Organizer by Wander Essentials",
+		price: 290000,
+		description:
+			"A travel organizer designed for the modern traveler. Keep your essentials neatly organized in this compact and stylish pouch.\n\nFeatures:\n- Multiple compartments\n- Lightweight and durable\n- Water-resistant material\n\nDimensions:\n20 cm Width x 12 cm Length x 5 cm Thickness",
+		categoryId: "cat002",
+		categoryItemId: "item005",
+		images: [
+			"/images/gift_for_him/organizer_thumbnail.jpg",
+			"/images/gift_for_him/organizer_open.jpg",
+			"/images/gift_for_him/organizer_closed.jpg",
+		],
+		colors: [
+			{ name: "Grey", image: "/images/gift_for_him/organizer_thumbnail.jpg", stock: 10 },
+			{ name: "Navy", image: "/images/gift_for_him/organizer_closed.jpg", stock: 8 },
+		],
+		stock: 18,
+		isFeatured: true,
+		onSale: false,
+		isNew: true,
+		createdAt: "2023-05-20T00:00:00.000Z",
+		updatedAt: "2023-05-20T00:00:00.000Z",
+	},
+	{
+		id: "206",
+		name: "Sleek Card Holder by Urban Essentials",
+		price: 130000,
+		description:
+			"A compact card holder for carrying your essentials in style. Made from durable materials, this card holder is perfect for minimalist carry.\n\nFeatures:\n- 3 Card slots\n- Slim and lightweight\n\nDimensions:\n10 cm Width x 6 cm Length x 0.5 cm Thickness",
+		categoryId: "cat002",
+		categoryItemId: "item005",
+		images: [
+			"/images/gift_for_him/cardholder_thumbnail.jpg",
+			"/images/gift_for_him/cardholder_black.jpg",
+			"/images/gift_for_him/cardholder_grey.jpg",
+		],
+		colors: [
+			{ name: "Black", image: "/images/gift_for_him/cardholder_black.jpg", stock: 25 },
+			{ name: "Grey", image: "/images/gift_for_him/cardholder_grey.jpg", stock: 20 },
+		],
+		stock: 45,
+		isFeatured: false,
+		onSale: true,
+		isNew: false,
+		createdAt: "2023-06-01T00:00:00.000Z",
+		updatedAt: "2023-06-01T00:00:00.000Z",
+	},
+
+	// Products for "Gifts For Her"
+	{
+		id: "202",
+		name: "Elegant Watch by Modern Timepiece",
+		price: 1200000,
+		description:
+			"An elegant wristwatch designed for style and functionality. This timepiece features a classic leather strap and a minimalist dial that fits any occasion.\n\nFeatures:\n- Water-resistant up to 50 meters\n- Japanese Quartz Movement\n- Genuine Leather Strap\n\nDimensions:\n42 mm Diameter x 10 mm Thickness",
+		categoryId: "cat003",
+		categoryItemId: "item005",
+		images: [
+			"/images/gift_for_him/watch_thumbnail.jpg",
+			"/images/gift_for_him/watch_side.jpg",
+			"/images/gift_for_him/watch_box.jpg",
+		],
+		colors: [
+			{ name: "Black", image: "/images/gift_for_him/watch_thumbnail.jpg", stock: 8 },
+			{ name: "Brown", image: "/images/gift_for_him/watch_side.jpg", stock: 5 },
+		],
+		stock: 13,
+		isFeatured: false,
+		onSale: true,
+		isNew: false,
+		createdAt: "2023-03-15T00:00:00.000Z",
+		updatedAt: "2023-03-15T00:00:00.000Z",
+	},
+	{
+		id: "203",
+		name: "Leather Key Holder by Artisan Craft",
+		price: 150000,
+		description:
+			"A premium leather key holder crafted for those who appreciate quality and simplicity. Designed to keep your keys organized with style.\n\nFeatures:\n- Holds up to 6 keys\n- Made from 100% Genuine Leather\n- Compact and durable design\n\nDimensions:\n9 cm Width x 4 cm Length x 1.5 cm Thickness",
+		categoryId: "cat003",
+		categoryItemId: "item005",
+		images: [
+			"/images/gift_for_him/keyholder_thumbnail.jpg",
+			"/images/gift_for_him/keyholder_black.jpg",
+			"/images/gift_for_him/keyholder_brown.jpg",
+		],
+		colors: [
+			{ name: "Black", image: "/images/gift_for_him/keyholder_black.jpg", stock: 20 },
+			{ name: "Brown", image: "/images/gift_for_him/keyholder_brown.jpg", stock: 15 },
+		],
+		stock: 35,
+		isFeatured: true,
+		onSale: false,
+		isNew: true,
+		createdAt: "2023-04-01T00:00:00.000Z",
+		updatedAt: "2023-04-01T00:00:00.000Z",
+	},
+	{
+		id: "204",
+		name: "Classic Leather Belt by Prime Belts",
+		price: 250000,
+		description:
+			"A classic leather belt that pairs well with both casual and formal attire. This belt is made from top-grain leather with a sturdy metal buckle.\n\nFeatures:\n- Adjustable size\n- Durable metal buckle\n- 100% Genuine Leather\n\nDimensions:\nWidth: 3.5 cm, Length: Adjustable (up to 120 cm)",
+		categoryId: "cat003",
+		categoryItemId: "item005",
+		images: [
+			"/images/gift_for_him/belt_thumbnail.jpg",
+			"/images/gift_for_him/belt_black.jpg",
+			"/images/gift_for_him/belt_brown.jpg",
+		],
+		colors: [
+			{ name: "Black", image: "/images/gift_for_him/belt_black.jpg", stock: 12 },
+			{ name: "Brown", image: "/images/gift_for_him/belt_brown.jpg", stock: 10 },
+		],
+		stock: 22,
+		isFeatured: false,
+		onSale: true,
+		isNew: false,
+		createdAt: "2023-02-10T00:00:00.000Z",
+		updatedAt: "2023-02-10T00:00:00.000Z",
+	},
+	{
+		id: "205",
+		name: "Travel Organizer by Wander Essentials",
+		price: 290000,
+		description:
+			"A travel organizer designed for the modern traveler. Keep your essentials neatly organized in this compact and stylish pouch.\n\nFeatures:\n- Multiple compartments\n- Lightweight and durable\n- Water-resistant material\n\nDimensions:\n20 cm Width x 12 cm Length x 5 cm Thickness",
+		categoryId: "cat003",
+		categoryItemId: "item005",
+		images: [
+			"/images/gift_for_him/organizer_thumbnail.jpg",
+			"/images/gift_for_him/organizer_open.jpg",
+			"/images/gift_for_him/organizer_closed.jpg",
+		],
+		colors: [
+			{ name: "Grey", image: "/images/gift_for_him/organizer_thumbnail.jpg", stock: 10 },
+			{ name: "Navy", image: "/images/gift_for_him/organizer_closed.jpg", stock: 8 },
+		],
+		stock: 18,
+		isFeatured: true,
+		onSale: false,
+		isNew: true,
+		createdAt: "2023-05-20T00:00:00.000Z",
+		updatedAt: "2023-05-20T00:00:00.000Z",
+	},
+	{
+		id: "206",
+		name: "Sleek Card Holder by Urban Essentials",
+		price: 130000,
+		description:
+			"A compact card holder for carrying your essentials in style. Made from durable materials, this card holder is perfect for minimalist carry.\n\nFeatures:\n- 3 Card slots\n- Slim and lightweight\n\nDimensions:\n10 cm Width x 6 cm Length x 0.5 cm Thickness",
+		categoryId: "cat003",
+		categoryItemId: "item005",
+		images: [
+			"/images/gift_for_him/cardholder_thumbnail.jpg",
+			"/images/gift_for_him/cardholder_black.jpg",
+			"/images/gift_for_him/cardholder_grey.jpg",
+		],
+		colors: [
+			{ name: "Black", image: "/images/gift_for_him/cardholder_black.jpg", stock: 25 },
+			{ name: "Grey", image: "/images/gift_for_him/cardholder_grey.jpg", stock: 20 },
+		],
+		stock: 45,
+		isFeatured: false,
+		onSale: true,
+		isNew: false,
+		createdAt: "2023-06-01T00:00:00.000Z",
+		updatedAt: "2023-06-01T00:00:00.000Z",
+	},
+];
