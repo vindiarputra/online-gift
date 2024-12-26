@@ -4,10 +4,14 @@ const MIDTRANS_SERVER_KEY = process.env.MIDTRANS_SERVER_KEY;
 const MIDTRANS_API_URL = "https://api.sandbox.midtrans.com/v2";
 
 if (!MIDTRANS_SERVER_KEY) {
-	throw new Error("MIDTRANS_SERVER_KEY is not set in environment variables");
+	console.error("MIDTRANS_SERVER_KEY is not set in environment variables");
 }
 
 export async function GET(req: Request, { params }: { params: { order_id: string } }) {
+	if (!MIDTRANS_SERVER_KEY) {
+		return NextResponse.json({ message: "Server configuration error" }, { status: 500 });
+	}
+
 	const orderId = params.order_id;
 	console.log(`Received order: ${orderId}`);
 
@@ -31,7 +35,7 @@ export async function GET(req: Request, { params }: { params: { order_id: string
 			);
 		}
 
-		const data: any = await response.json();
+		const data = await response.json();
 		return NextResponse.json(data, { status: 200 });
 	} catch (error) {
 		console.error("Error fetching Midtrans status:", error);
