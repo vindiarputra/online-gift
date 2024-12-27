@@ -123,14 +123,18 @@ export default function CartPage() {
 				const res = await fetch("/api/token/" + orderId);
 				const data = await res.json();
 				if (!res.ok) throw new Error("Transaction Failed");
-				setTransaction((prevTransaction) => ({
-					...prevTransaction,
-					order_id: data.order_id,
-					gross_amount: data.gross_amount,
-					payment_type: data.payment_type,
-					bank: data.va_numbers?.[0]?.bank ?? "",
-				}));
-				setPaymentSuccess(true);
+				console.log(data);
+
+				if (data.status_code === "200") {
+					setTransaction((prevTransaction) => ({
+						...prevTransaction,
+						order_id: data.order_id,
+						gross_amount: data.gross_amount,
+						payment_type: data.payment_type,
+						bank: data.va_numbers?.[0]?.bank ?? "",
+					}));
+					setPaymentSuccess(true);
+				}
 			} catch (error) {
 				console.error("Error checking payment status:", error);
 			}
@@ -160,8 +164,6 @@ export default function CartPage() {
 		}
 	};
 
-	
-
 	useEffect(() => {
 		const getProductsCart = async () => {
 			try {
@@ -183,8 +185,6 @@ export default function CartPage() {
 		}
 		getProductsCart();
 	}, [user, orderId, pathname]);
-
-
 
 	useEffect(() => {
 		if (paymentSuccess) {

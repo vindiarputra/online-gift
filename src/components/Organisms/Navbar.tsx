@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import UserProfileDropdown from "./UserProfileDropdown";
+import { TransactionHistory } from "./TransactionHistory";
 
 export default function Navbar() {
 	const router = useRouter();
@@ -65,6 +66,7 @@ export default function Navbar() {
 							onClick={() => router.push("/cart/" + user?.id)}>
 							<GiftIcon />
 						</Button>
+						<TransactionHistory />
 
 						<div className="w-10 flex items-center">
 							{!isSignedIn ? (
