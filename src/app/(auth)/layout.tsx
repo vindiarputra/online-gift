@@ -44,7 +44,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
 					)}
 				</div>
 
-				<div className="flex-grow flex items-center justify-center md:-mt-8 lg:-mt-20">
+				<div className="flex-grow flex items-center justify-center md:-mt-8 ">
 					<div className="w-full max-w-sm">
 						<div className="mb-8 text-center">
 							<h2 className="text-2xl lg:text-3xl font-bold text-foreground">
