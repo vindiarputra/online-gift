@@ -65,12 +65,9 @@ export function TransactionHistory() {
 	return (
 		<Sheet open={isOpen} onOpenChange={setIsOpen}>
 			<SheetTrigger asChild>
-				<Button
-					variant="outline"
-					className="relative bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
-             shadow-[0_4px_0_0_#000] transition-all duration-300
-             active:top-[2px] active:shadow-none">
+				<Button variant="ghost" className="text-gray-600 hover:text-gray-900 hover:bg-white/50 w-full justify-start">
 					<History className="h-4 w-4" />
+					History
 				</Button>
 			</SheetTrigger>
 			<SheetContent className="w-[95vw] sm:w-[90vw] lg:w-[80vw] max-w-[1200px]">

@@ -66,9 +66,7 @@ export default function SearchProduct() {
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
 			<DialogTrigger asChild>
-				<Button
-					variant="outline"
-					className="relative bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black shadow-[0_4px_0_0_#000] transition-all duration-300 active:top-[2px] active:shadow-none">
+				<Button variant="ghost" className="text-gray-600 hover:text-gray-900 hover:bg-white/50 ">
 					<Search className="mr-2 h-4 w-4" />
 					Search Products
 				</Button>

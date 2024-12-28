@@ -1,33 +1,45 @@
 "use client";
 
-import { GiftIcon, Menu, ShoppingCart, User2 } from "lucide-react";
+import {
+	GiftIcon,
+	Menu,
+	ShoppingCart,
+	User2,
+	Search,
+	LogOut,
+	UserCircle,
+	Settings,
+	History,
+} from "lucide-react";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "../ui/button";
-import SearchProduct from "../Moleculs/SearchProduct";
-import { UserButton, useUser } from "@clerk/nextjs";
+import { usePathname, useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useClerk, UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
-import UserProfileDropdown from "./UserProfileDropdown";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 import { TransactionHistory } from "./TransactionHistory";
+import SearchProduct from "../Moleculs/SearchProduct";
 
 export default function Navbar() {
 	const router = useRouter();
 	const [isVisible, setIsVisible] = useState(true);
 	const [lastScrollY, setLastScrollY] = useState(0);
 	const { isSignedIn, user, isLoaded } = useUser();
-	const profile = {
-		id: user?.id || "",
-		name: user?.fullName || "",
-		email: user?.primaryEmailAddress?.emailAddress || "",
-		avatarUrl: user?.imageUrl || "",
-	};
+	const [isSearchOpen, setIsSearchOpen] = useState(false);
+	const { signOut } = useClerk();
+	const pathname = usePathname()
+
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
@@ -45,104 +57,129 @@ export default function Navbar() {
 
 	return (
 		<nav
-			className={`bg-white p-4 border-b-2 border-black fixed w-full z-20 transition-transform duration-300 ease-in-out top-0 ${
-				isVisible ? "translate-y-0" : "-translate-y-full"
-			}`}>
-			<div className="max-w-6xl mx-auto">
-				<div className="flex justify-between items-center">
+			className={cn(
+				"fixed w-full z-20 transition-all duration-300 ease-in-out top-0",
+				isVisible ? "translate-y-0" : "-translate-y-full",
+				isSearchOpen ? "bg-white" : "bg-transparent",
+				"backdrop-blur-md bg-white/30 "
+			)}>
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div className="flex justify-between items-center py-4">
 					{/* Logo */}
+					<Link href="/" className="flex items-center">
+						<Image
+							src="/images/logo/OG_.svg"
+							alt="Logo"
+							width={40}
+							height={40}
+							className="rounded-full"
+						/>
+						<span className="ml-2 text-sm md:text-lg font-bold text-gray-900">Online Gift</span>
+					</Link>
 
-					<div className="flex items-center" onClick={() => router.push("/")}>
-						<Image src="/images/logo/OG_.svg" alt="Logo" width={60} height={50} />
-					</div>
-
-					{/* Desktop Menu */}
-					<div className="hidden md:flex space-x-4 justify-center items-center">
-						<SearchProduct />
+					{/* Search */}
+					<div
+						className={cn(
+							"absolute inset-0 z-20 flex items-center justify-center bg-white/80 backdrop-blur-md transition-all duration-300",
+							isSearchOpen ? "opacity-100 visible" : "opacity-0 invisible"
+						)}>
+						<Input
+							type="search"
+							placeholder="Search products..."
+							className="w-full max-w-md bg-transparent border-gray-300 focus:border-gray-500 focus:ring-gray-500"
+						/>
 						<Button
-							className="relative bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
-             shadow-[0_4px_0_0_#000] transition-all duration-300
-             active:top-[2px] active:shadow-none"
-							onClick={() => router.push("/cart/" + user?.id)}>
-							<GiftIcon />
+							variant="ghost"
+							size="icon"
+							className="absolute right-4 text-gray-600 hover:text-gray-900"
+							onClick={() => setIsSearchOpen(false)}>
+							<Search className="h-4 w-4" />
+							<span className="sr-only">Close search</span>
 						</Button>
-						<TransactionHistory />
-
-						<div className="w-10 flex items-center">
-							{!isSignedIn ? (
-								<DropdownMenu>
-									<DropdownMenuTrigger asChild>
-										<div
-											className="flex h-10 w-10 rounded-full bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
-             shadow-[0_4px_0_0_#000] transition-all duration-300
-             active:top-[2px] active:shadow-none justify-center items-center">
-											<User2 />
-										</div>
-									</DropdownMenuTrigger>
-									<DropdownMenuContent className="w-56 bg-white border-2 border-black p-2">
-										<DropdownMenuItem asChild>
-											<Button
-												className="w-full bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
-                     shadow-[0_4px_0_0_#000] transition-all duration-300
-                     active:top-[2px] active:shadow-none my-2 cursor-pointer"
-												onClick={() => router.push("/sign-in")}>
-												<User2 className="mr-2" /> Sign In
-											</Button>
-										</DropdownMenuItem>
-									</DropdownMenuContent>
-								</DropdownMenu>
-							) : (
-								<UserProfileDropdown user={profile} />
-							)}
-						</div>
 					</div>
 
-					{/* Mobile Menu (Dropdown) */}
-
-					<div className="md:hidden space-x-4">
+					{/* Navigation Items */}
+					<div className="flex items-center">
 						<SearchProduct />
+
+						{/* Desktop Navigation */}
+						<div className="hidden md:flex">
+							<Button
+								variant="ghost"
+								onClick={() => router.push(`/cart/${user?.id}`)}
+								className="text-gray-600 hover:text-gray-900 hover:bg-white/50">
+								<GiftIcon className="mr-2 h-5 w-5" />
+								Box
+							</Button>
+							<TransactionHistory />
+						</div>
+
+						{/* User Menu (Desktop & Mobile) */}
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
 								<Button
-									className="relative bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
-                 shadow-[0_4px_0_0_#000] transition-all duration-300
-                 active:top-[2px] active:shadow-none">
-									<Menu />
+									variant="ghost"
+									size="icon"
+									className="relative rounded-full hover:bg-white/50 ">
+									{isSignedIn ? (
+										<Avatar className="h-8 w-8">
+											<AvatarImage src={user?.imageUrl} alt={user?.fullName || ""} />
+											<AvatarFallback>{user?.fullName?.[0] || "U"}</AvatarFallback>
+										</Avatar>
+									) : (
+										<User2 className="h-5 w-5 text-gray-600 " />
+									)}
 								</Button>
 							</DropdownMenuTrigger>
-							<DropdownMenuContent className="w-56 bg-white border-2 border-black p-2">
-								{!isSignedIn ? (
+							<DropdownMenuContent align="end" className="w-56  backdrop-blur-md">
+								{isSignedIn ? (
+									<>
+										<DropdownMenuLabel>
+											<div className="flex flex-col">
+												<span className="font-medium">{user?.fullName}</span>
+												<span className="text-xs text-gray-500">
+													{user?.primaryEmailAddress?.emailAddress}
+												</span>
+											</div>
+										</DropdownMenuLabel>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem onClick={() => router.push(`/profile/${user?.id}`)}>
+											<UserCircle className="mr-2 h-4 w-4" />
+											Profile
+										</DropdownMenuItem>
+
+										<DropdownMenuSeparator />
+										<DropdownMenuItem
+											onClick={() => signOut({ redirectUrl: pathname ? pathname : "/" })}
+											className="cursor-pointer relative bg-red-500 text-white focus:bg-red-300 focus:text-white">
+											<LogOut className="mr-2 h-4 w-4" />
+											Log Out
+										</DropdownMenuItem>
+									</>
+								) : (
 									<DropdownMenuItem asChild>
-										<Button
-											className="w-full bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
-                     shadow-[0_4px_0_0_#000] transition-all duration-300
-                     active:top-[2px] active:shadow-none my-2"
-											onClick={() => router.push("/sign-in")}>
-											<User2 className="mr-2" /> Sign In
+										<Button className="w-full" onClick={() => router.push("/sign-in")}>
+											<User2 className="mr-2 h-4 w-4" />
+											Sign In
 										</Button>
 									</DropdownMenuItem>
-								) : (
-									<DropdownMenuItem>
-										<div className="flex justify-center w-full my-2">
-											<UserButton
-												appearance={{
-													elements: {
-														userButtonAvatarBox: "w-10 h-10",
-													},
-												}}
-											/>
-										</div>
-									</DropdownMenuItem>
 								)}
-								<DropdownMenuItem asChild>
-									<Button
-										className="w-full bg-[#8BB4F7] hover:bg-[#8BB4F7] text-black border-2 border-black
-                   shadow-[0_4px_0_0_#000] transition-all duration-300
-                   active:top-[2px] active:shadow-none my-2"
-										onClick={() => router.push("/cart/" + user?.id)}>
-										<GiftIcon className="mr-2" /> Cart
-									</Button>
-								</DropdownMenuItem>
+
+								{/* Mobile-only navigation items */}
+								<div className="md:hidden mt-2">
+									<DropdownMenuSeparator />
+
+									<DropdownMenuItem
+										onClick={() => router.push(`/cart/${user?.id}`)}
+										className="text-gray-600 hover:text-gray-900 px-4">
+										<GiftIcon className=" h-5 w-5" />
+										Box
+									</DropdownMenuItem>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem className="p-0">
+										<TransactionHistory />
+									</DropdownMenuItem>
+								</div>
 							</DropdownMenuContent>
 						</DropdownMenu>
 					</div>
