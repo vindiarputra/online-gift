@@ -1,13 +1,19 @@
-import { auth, clerkMiddleware } from "@clerk/nextjs/server";
+import { auth, clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { supabase } from "./lib/utils";
 
+const isProtectedRoute = createRouteMatcher(["/profile(.*)"]);
+
 export default clerkMiddleware(async (auth, req) => {
-	const { userId } = await auth();
+	const { userId, redirectToSignIn } = await auth();
 	const currentUrl = new URL(req.url);
-	// Lewatkan semua rute API
+
 	if (currentUrl.pathname.startsWith("/api")) {
 		return NextResponse.next();
+	}
+
+	if (!userId && isProtectedRoute(req)) {
+		return redirectToSignIn();
 	}
 	
 	if (userId) {
