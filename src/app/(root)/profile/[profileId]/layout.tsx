@@ -1,3 +1,5 @@
+
+
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<section className="bg-background min-h-screen mt-16 max-w-4xl flex mx-auto">
